@@ -1,0 +1,57 @@
+# Ambientes virtuais
+venv/
+.env
+.env.*
+
+# Arquivos Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.bak
+
+# Configurações do sistema
+.DS_Store
+Thumbs.db
+
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Banco de dados local (se usar SQLite em testes)
+*.sqlite3
+*.db
+
+# Arquivos de cache/pacotes
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Jupyter notebooks checkpoints (caso use)
+.ipynb_checkpoints/
+
+# Testes e coverage
+htmlcov/
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# GitHub Copilot
+*.copilot
+
+# Arquivos grandes por engano (como os do Torch)
+**/torch/lib/*
+*.dll
+*.lib
+
+# Exportações e requisitos
+requirements.txt
