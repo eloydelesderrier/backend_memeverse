@@ -46,4 +46,5 @@ def generate_meme(caminho_imagem, frase, posicao):
     os.makedirs("static/memes", exist_ok=True)
     image.save(path)
 
+    # Retorna a URL pública
     return path
