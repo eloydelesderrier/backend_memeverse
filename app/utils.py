@@ -1,15 +1,16 @@
-from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 import os
 import uuid
+from PIL import Image, ImageDraw, ImageFont
+from networkx import draw
 
 def get_font_size(draw, frase, image_width, max_width_ratio=0.9):
-    font_size = 80
+    font_size = 100
     font_path = "" 
     if not os.path.exists(font_path):
         font_path = None  # Usa fonte padrão do PIL
 
-    while font_size > 50:
+    while font_size > 100:
         font = ImageFont.truetype(font_path, font_size) if font_path else ImageFont.load_default()
         bbox = draw.textbbox((0, 0), frase, font=font)
         text_width = bbox[2] - bbox[0]
@@ -19,8 +20,8 @@ def get_font_size(draw, frase, image_width, max_width_ratio=0.9):
 
     return ImageFont.truetype(font_path, 12) if font_path else ImageFont.load_default()
 
-def generate_meme(caminho_imagem, frase, posicao):
-    image = Image.open(BytesIO(caminho_imagem)).convert("RGB")
+def create_meme(frase, posicao, imagem_bytes):
+    image = Image.open(BytesIO(imagem_bytes)).convert("RGB")
     draw = ImageDraw.Draw(image)
 
     font = get_font_size(draw, frase, image.width)
@@ -46,5 +47,8 @@ def generate_meme(caminho_imagem, frase, posicao):
     os.makedirs("static/memes", exist_ok=True)
     image.save(path)
 
-    # Retorna a URL pública
     return path
+
+
+
+

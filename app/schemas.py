@@ -16,16 +16,16 @@ class UserOut(BaseModel):
     class Config:
         from_attributes = True
 
-class Token(BaseModel):
-    access_token: str
-    token_type: str
+class UserUpdate(BaseModel):
+    usuario: Optional[str] = None
+    senha: Optional[str] = None
 
-class TokenData(BaseModel):
-    email: Optional[str] = None
-    jti: Optional[str] = None
+class UserDelete(BaseModel):
+    id: int
+
 class MemeCreate(BaseModel):
     frase: str
-    posicao: str  # top, center, bottom
+    posicao: str 
 
 class MemeOut(BaseModel):
     id: int
@@ -35,3 +35,13 @@ class MemeOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    usuario: str
+
+

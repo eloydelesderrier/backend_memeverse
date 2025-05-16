@@ -3,7 +3,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app import database, models
-from app.memeverse import router as memeverse_router
+from app.routes.meme import router as meme_router
+from app.routes.users import router as login_router
 
 models.Base.metadata.create_all(bind=database.engine)
 
@@ -25,4 +26,6 @@ app.add_middleware(
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-app.include_router(memeverse_router)
+app.include_router(meme_router)
+app.include_router(login_router)
+
