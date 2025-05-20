@@ -36,6 +36,14 @@ class MemeOut(BaseModel):
     class Config:
         from_attributes = True
 
+class MemeSchema(BaseModel):
+    id: int
+    frase: str
+    caminho_imagem: str  # ou qualquer campo que você tiver
+
+    class Config:
+        from_attributes = True
+
 
 class Token(BaseModel):
     access_token: str

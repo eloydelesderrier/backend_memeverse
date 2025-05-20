@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Depends
 from fastapi.responses import FileResponse
 
@@ -7,10 +8,12 @@ from app import auth, models, schemas, utils, database
 
 
 
-router = APIRouter(tags=["meme"])
+router = APIRouter(
+    tags=["meme"]
+)
 
 
-@router.post("/meme")
+@router.post("/criar-meme")
 async def criar_meme(
     frase: str = Form(...),
     posicao: str = Form(...),
@@ -38,6 +41,10 @@ def get_meme_image(meme_id: int, db: Session = Depends(database.get_db)):
     if meme:
         return FileResponse(meme.caminho_imagem)
     return {"error": "Meme not found"}
+
+@router.get("/galeria-meme", response_model=List[schemas.MemeSchema])
+def gallery( db:Session = Depends(database.get_db)):
+    return db.query(models.Meme).all()
 
 
 @router.delete("/memes/{meme_id}")

@@ -3,22 +3,34 @@ import os
 import uuid
 from PIL import Image, ImageDraw, ImageFont
 from networkx import draw
+from PIL import ImageFont
+import os
 
 def get_font_size(draw, frase, image_width, max_width_ratio=0.9):
-    font_size = 100
-    font_path = "" 
-    if not os.path.exists(font_path):
-        font_path = None  # Usa fonte padrão do PIL
+    font_size = 1000
+    font_path = ""  # Coloque aqui o caminho para uma fonte .ttf se quiser usar uma personalizada
 
-    while font_size > 100:
+    # Se o caminho não existir, usa a fonte padrão
+    if not os.path.exists(font_path):
+        font_path = None
+
+    while True:
         font = ImageFont.truetype(font_path, font_size) if font_path else ImageFont.load_default()
         bbox = draw.textbbox((0, 0), frase, font=font)
         text_width = bbox[2] - bbox[0]
-        if text_width <= image_width * max_width_ratio:
-            return font
-        font_size -= 1
 
-    return ImageFont.truetype(font_path, 12) if font_path else ImageFont.load_default()
+        if text_width >= image_width * max_width_ratio:
+            break
+        font_size += 2
+
+        # Limite de tamanho para evitar loop infinito
+        if font_size > 1000:
+            break
+
+    # Volta um passo para garantir que não passou do limite
+    final_size = font_size - 2
+    return ImageFont.truetype(font_path, final_size) if font_path else ImageFont.load_default()
+
 
 def create_meme(frase, posicao, imagem_bytes):
     image = Image.open(BytesIO(imagem_bytes)).convert("RGB")

@@ -83,3 +83,4 @@ def create_memes(db: Session, frase: str, caminho_imagem: str, posicao: str, use
 def get_memes(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.Meme).offset(skip).limit(limit).all()
 
+
